@@ -538,6 +538,7 @@ def do_download(arg,
                 print(json.dumps(metadata, sort_keys=True,
                                  indent=2, separators=(',', ':')))
             if options.jsonmetafile:
+                print("JSON_METADATA_FILE_PATH:", output_filename+".json")
                 with open(output_filename+".json","w") as jsonfile:
                     json.dump(metadata, jsonfile, sort_keys=True,
                                  indent=2, separators=(',', ':'))
