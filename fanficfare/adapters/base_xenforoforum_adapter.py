@@ -518,7 +518,13 @@ class BaseXenForoForumAdapter(BaseSiteAdapter):
             souptag = self.get_cache_post(anchorid)
 
         else:
-            threadmarks = self.extract_threadmarks(souptag)
+            if self.getConfig('no_threadmarks_metadata'):
+                print("MOXIE: Skipping threadmarks metadata load")
+                threadmarks = []
+            else:
+                print("MOXIE: Running threadmarks metadata load")
+                threadmarks = self.extract_threadmarks(souptag)
+
             souptag = self.get_first_post(topsoup)
 
             if len(threadmarks) < int(self.getConfig('minimum_threadmarks',2)):
