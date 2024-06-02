@@ -148,8 +148,12 @@ class FimFictionNetSiteAdapter(BaseSiteAdapter):
         self.story.setMetadata("rating", rating)
 
         # Chapters
-        for chapter in soup.find('ul',{'class':'chapters'}).find_all('a',{'class':'chapter-title'}):
-            self.add_chapter(chapter, 'https://'+self.host+chapter['href'])
+        for chapterTitleBox in soup.find('ul',{'class':'chapters'}).find_all('div',{'class':'title-box'}):
+            chapter = chapterTitleBox.find('a',{'class':'chapter-title'})
+            chapterDateEl = chapterTitleBox.find('span',{'class':'date'})
+            chapterDate = self.ordinal_date_string_to_date(chapterDateEl.contents[1])
+            chapterDateFormat = self.getConfig("datechapter_format", self.getConfig("datePublished_format", self.dateformat))
+            self.add_chapter(chapter, 'https://'+self.host+chapter['href'], {'date': chapterDate.strftime(chapterDateFormat)})
 
 
         # Status
