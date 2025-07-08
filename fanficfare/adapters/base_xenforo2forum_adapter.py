@@ -46,7 +46,7 @@ class BaseXenForo2ForumAdapter(BaseSiteAdapter):
         m = re.match(self.getSiteURLPattern(),url)
         if m:
             #logger.debug("groupdict:%s"%m.groupdict())
-            if m.group('anchorpost'):
+            if False and m.group('anchorpost'):
                 self.story.setMetadata('storyId',m.group('anchorpost'))
                 self._setURL(self.getURLPrefix() + 'posts/'+m.group('anchorpost')+'/')
             else:
